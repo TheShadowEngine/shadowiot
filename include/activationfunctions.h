@@ -15,6 +15,7 @@
 #include <math.h>
 
 namespace Net {
+
     typedef double(*ActivationFunction)(double);
 
     /**
@@ -22,7 +23,7 @@ namespace Net {
      * @return double 
      */
     inline double sigmoid(double initialOutput) {
-        return (1 / (1 + exp(-initialOutput / 1)));
+        return ( 1 / ( 1 + exp(-initialOutput / 1)));
     }
 
     /**
@@ -42,6 +43,30 @@ namespace Net {
     }
 
     /**
+     * @param initialOutput 
+     * @return double 
+     */
+    inline double simpleLinear(double initialOutput) {
+        return initialOutput;
+    }
+
+    /**
+     * @param initialOutput 
+     * @return double 
+     */
+    inline double tanSigmoid(double initialOutput) {
+        return (exp(2*initialOutput)-1) / (exp(2*initialOutput)+1);
+    }
+
+    /**
+     * @param neuronOuput 
+     * @return double 
+     */
+    inline double sigmoidDerivative(double neuronOuput) {
+        return neuronOuput * (1 - neuronOuput);
+    }
+
+    /**
      * @param neuronOutput 
      * @return double 
      */
@@ -53,7 +78,7 @@ namespace Net {
      * @param neuronOutput 
      * @return double 
      */
-    inline double sigmoidDerivative(double neuronOutput) {
-        return neuronOutput * (1 - neuronOutput);
+    inline double tanSigmoidDerivative(double neuronOutput) {
+        return 1 - pow(tanSigmoid(neuronOutput), 2);
     }
 }
